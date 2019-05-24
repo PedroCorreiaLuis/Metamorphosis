@@ -48,9 +48,4 @@ def isComposedType(input: String): Boolean = {
   ComposedTypeList.exists(input.startsWith)
 }
 
-isComposedType("String")
-isComposedType("Boolean")
-isComposedType("List[Float]")
-isComposedType("string")
-isComposedType(" wefu  3w4efui")
 

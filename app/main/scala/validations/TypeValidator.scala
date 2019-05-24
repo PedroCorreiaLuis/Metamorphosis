@@ -5,24 +5,10 @@ import main.scala.validations.TypeChecker._
 
 class TypeValidator(input: String) extends Validator[DSLConverter] {
 
-  def getTypeCategory: Type = {
-    if(hasSupportedTypes){
-      if (isSimpleType) SimpleType
-      else if(isComposedType) ComposedType
-      else UDCType
-    }
-    else InvalidType
-  }
-
-  private def hasSupportedTypes: Boolean = SupportedTypeList.exists(input.contains)
-  private def isSimpleType: Boolean =SimpleTypeList.exists(input.equals)
-  private def isComposedType: Boolean = ComposedTypeList.exists(input.startsWith)
-  private def isUDCType: Boolean =UDCTypeList.exists(input.contains)
-
-  def validateTypes: Boolean = hasSupportedTypes &&(isSimpleType|| isComposedType|| isUDCType)
+  def hasSupportedTypes(input:String)(String: => Boolean): Boolean = SupportedTypeList.exists(input.contains)
+  def isSimpleType(input:String)(String: => Boolean): Boolean = SimpleTypeList.exists(input.equals)
+  def isComposedType(input:String)(String: => Boolean): Boolean = ComposedTypeList.exists(input.startsWith)
+  def isUDCType(input:String)(String: => Boolean): Boolean = UDCTypeList.exists(input.contains)
 
 }
 
-object TypeValidator {
-  def apply(input: String): Boolean = new TypeValidator(input).validateTypes
-}

@@ -7,10 +7,12 @@ import scala.util.{ Failure, Success, Try }
 class PathValidator(path: String) extends Validator[File] {
 
   protected def createFile: Either[Throwable, File] = {
+    if(path.contains(".scala"))
     Try(new File(path)) match {
       case Failure(exception) => Left(exception)
       case Success(value) => Right(value)
     }
+    else Left(new Throwable("Invalid path name"))
   }
 }
 

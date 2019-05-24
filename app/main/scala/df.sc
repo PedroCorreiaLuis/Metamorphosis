@@ -59,7 +59,10 @@ AnyRef
 
 
 
+import javax.xml.bind.annotation.XmlElementDecl.GLOBAL
+
 import scala.reflect.runtime.universe._
+import scala.tools.nsc.Global
 import scala.tools.reflect.ToolBox
 
 /*val m = runtimeMirror(getClass.getClassLoader)
@@ -70,14 +73,15 @@ val a : String
 typeOf[String]
 import scala.reflect.runtime.currentMirror
 
-def toType(expr: String) = {
+
   val tb = currentMirror.mkToolBox()
-  val exp = tb.parse(expr.trim)
-  tb.typecheck(exp).tpe
-
-}
-
-val t = toType("List")
+  val exp = tb.parse("def a = print(\"ola\")".trim)
+  //val tpe = tb.untypecheck(exp)
+showRaw(exp)
 
 
+val any  = typeOf[Any]
+any.companion
+val a = classOf[Int]
 
+val ahh:String = ""
