@@ -8,7 +8,7 @@ case class DSL(inType: String, outType: String, transformations: Seq[String], fi
 
 object DSL {
 
-  private def verifyType(jsPath: JsPath): Reads[String] = jsPath.readNullable[String](
+  private[dtos] def verifyType(jsPath: JsPath): Reads[String] = jsPath.readNullable[String](
     verifying(str =>
       SimpleTypeList.exists(str.equals)
         || ComposedTypeList.exists(str.startsWith)

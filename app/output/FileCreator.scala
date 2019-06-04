@@ -9,10 +9,10 @@ class FileCreator(inputs: DSL) extends PathValidator(inputs.filePath) {
 
   override def createFile: Either[Throwable, File] = PathValidator(inputs.filePath)
 
-  def writeToFile(inputs: DSL): Either[Throwable, Unit] = {
+  def writeToFile: Either[Throwable, Unit] = {
     val p = new PrintWriter(inputs.filePath)
     //p.write{""}
-    Right()
+    //Right()
     ???
   }
 }

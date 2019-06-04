@@ -1,5 +1,6 @@
 package validations
 
 object Errors {
-  val classNotFoundException = new ClassNotFoundException()
+  val ClassNotFoundException = new ClassNotFoundException()
+  val MethodNotFoundException = new NoSuchMethodException()
 }

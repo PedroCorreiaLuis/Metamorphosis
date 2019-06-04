@@ -1,7 +1,7 @@
 package typeLoader.testJars
 
-class DummySimpleClass {
+class DummySimpleClass() {
 
-  def hello(): String = "Hello World!"
+  def hello: String = "Hello World!"
 
 }
