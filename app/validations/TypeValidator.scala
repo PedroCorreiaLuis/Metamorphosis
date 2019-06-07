@@ -1,5 +1,5 @@
 package validations
-
+/*
 import translater._
 import validations.TypeChecker._
 
@@ -12,3 +12,4 @@ class TypeValidator(input: String) extends Validator[DSLConverter] {
 
 }
 
+*/ 

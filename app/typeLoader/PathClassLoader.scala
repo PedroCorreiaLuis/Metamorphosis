@@ -2,19 +2,17 @@ package typeLoader
 
 import java.io.File
 import java.lang.reflect.Method
-import java.net.{URL, URLClassLoader}
+import java.net.{ URL, URLClassLoader }
 
 import validations.Errors._
 
-import scala.util.{Failure, Success, Try}
+import scala.util.{ Failure, Success, Try }
 
 /**
  * This class loads classes from target path
  * @param path the path where the jar is located
- * @param classNames a list of all classes that the jar contains
- * @param methodNames a list of all the methods that a class contains
  */
-class PathClassLoader(path: String, classNames: List[String], methodNames: Option[List[String]] = None) extends ClassLoader0 {
+class PathClassLoader(path: String) extends ClassLoader0 {
 
   /** Load the class in the target path **/
   val classLoader: URLClassLoader = new URLClassLoader(Array[URL](new File(path).toURI.toURL))
@@ -28,7 +26,8 @@ class PathClassLoader(path: String, classNames: List[String], methodNames: Optio
 
     Try(classLoader.loadClass(className)) match {
       case Success(res) => Right(res)
-      case _ => Left(ClassNotFoundException)
+      case Failure(exception) if exception.isInstanceOf[ClassNotFoundException] => Left(ClassNotFoundException)
+      case Failure(exception) => Left(exception)
     }
   }
 

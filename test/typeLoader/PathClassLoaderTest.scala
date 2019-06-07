@@ -11,8 +11,8 @@ class PathClassLoaderTest extends AsyncWordSpec with BeforeAndAfterAll with Befo
   private val simpleClassPath = "C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis\\test\\typeLoader\\testJars\\typeLoader.testJars.DummySimpleClass.scala"
   private val complexClassPath = "C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis\\test\\typeLoader\\testJars\\DummyComplexClass.scala"
 
-  private val simplePathClassLoader: PathClassLoader = new PathClassLoader(simpleClassPath, List("typeLoader.testJars.DummySimpleClass"), Some(List("hello")))
-  private val complexPathClassLoader: PathClassLoader = new PathClassLoader(complexClassPath, List("typeLoader.testJars.DummyComplexClass"), Some(List("catAge", "reverseName", "numberOfContacts")))
+  private val simplePathClassLoader: PathClassLoader = new PathClassLoader(simpleClassPath)
+  private val complexPathClassLoader: PathClassLoader = new PathClassLoader(complexClassPath)
 
   private val dummySClass = new DummySimpleClass()
   private val dummyCClass = DummyComplexClass("name", 20, List("910000000"))
