@@ -10,7 +10,7 @@ case class TransformationDTO(transformationName: Option[String], predicate: Opti
 object TransformationDTO {
 
   private[dtos] def verifyTransformation(jsPath: JsPath): Reads[Option[String]] = jsPath.readNullable[String](
-    verifying(possibleTransformations.contains))
+    verifying(possibleTransformations.contains(_)))
 
   implicit val writeTransformation: Writes[TransformationDTO] = (
     (__ \ "transformationName").write[Option[String]] and

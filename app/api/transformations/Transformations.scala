@@ -8,5 +8,5 @@ object Transformations {
   case object Sum extends Transformation
   case object Size extends Transformation
 
-  lazy val possibleTransformations: List[String] = List(Filter, Map, Sum, Size).map(_.toString)
+  lazy val possibleTransformations: List[String] = List("filter", "map", "sum", "size")
 }
