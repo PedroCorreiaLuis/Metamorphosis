@@ -7,4 +7,5 @@ import com.typesafe.config.ConfigFactory
  */
 object Config {
   val SBT = ConfigFactory.load().getString("sbtPath")
+  val OutputPath = ConfigFactory.load().getString("generatedClassPath")
 }

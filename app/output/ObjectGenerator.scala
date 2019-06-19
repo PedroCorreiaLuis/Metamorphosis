@@ -6,12 +6,9 @@ import api.dtos.DSLDTO
 
 import scala.concurrent.{ ExecutionContext, Future }
 
-class ObjectGenerator[T](dsl: DSLDTO, data: Seq[T]) extends CodeGenerator {
+class ObjectGenerator(dsl: DSLDTO) extends CodeGenerator {
 
   implicit val exec: ExecutionContext = ExecutionContext.global
-
-  //import com.typesafe.config.ConfigFactory
-  //val GeneratedClassPath: String = ConfigFactory.load().getString("generatedClassPath")
 
   def generate(outputPath: String, objectName: String): Future[Unit] = {
 
@@ -26,6 +23,7 @@ class ObjectGenerator[T](dsl: DSLDTO, data: Seq[T]) extends CodeGenerator {
 
     val res = transformationsParser.foldLeft("")(_ + "." + _)
 
+    val inType = dsl.inType.`type`.getOrElse("")
     val outType = dsl.outType.`type`.getOrElse("")
 
     Future(new PrintWriter(outputPath + "\\" + objectName + ".scala") {
@@ -35,12 +33,12 @@ class ObjectGenerator[T](dsl: DSLDTO, data: Seq[T]) extends CodeGenerator {
         s"""
          |
          |object $objectName{
-         |def run: $outType = {
-         |$data$res
+         |def run(data:$inType): $outType = {
+         |data$res
          |}
          |
          |def main(args: Array[String]): Unit = {
-         |println(run)
+         |println(run _)
          |}
          |}
     """.stripMargin)

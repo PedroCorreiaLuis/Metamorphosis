@@ -10,10 +10,10 @@ object Docker {
     implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
     //sbt docker:publishLocal
-    %%(SBT, "docker:publishLocal")(Path("..\\Metamorphosis"))
+    %%(SBT, "docker:publishLocal")(pwd)
 
     //docker run --rm metamorphosis:0.1
-    Future(%%("docker", "run", "--rm", "metamorphosis:0.1")(Path("..\\Metamorphosis")))
+    Future(%%("docker", "run", "--rm", "metamorphosis:0.1")(pwd))
 
   }
 }

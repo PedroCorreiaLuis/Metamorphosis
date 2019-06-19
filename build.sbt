@@ -6,6 +6,7 @@ scalaVersion := "2.12.8"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala).enablePlugins(JavaAppPackaging).enablePlugins(DockerPlugin).enablePlugins(AshScriptPlugin)
 
+//change POC to the name of the new class path
 mainClass in Compile := Some("POC")
 
 

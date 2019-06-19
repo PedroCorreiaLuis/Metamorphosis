@@ -26,9 +26,7 @@ class ObjectGeneratorTest extends WordSpec with BeforeAndAfterAll with BeforeAnd
   "Object Generator" should {
     "correctly generate an Object in the target path" in {
 
-      val data: Seq[Int] = Seq(1, 2, 3)
-
-      val objGen = new ObjectGenerator[Int](dsl, data)
+      val objGen = new ObjectGenerator(dsl)
       val classLoader = new PathClassLoader(path)
 
       objGen.generate(path, objectName)
