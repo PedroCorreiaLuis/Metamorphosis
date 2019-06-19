@@ -13,8 +13,6 @@ object TransformationDTO {
   def applyWithOptional(transformationName: String, predicate: Option[String]): TransformationDTO =
     TransformationDTO(toTransformation(transformationName), predicate)
 
-  //def unapplyWithOptional(arg: TransformationDTO): Option[(Transformation, Option[String])] = Some(arg.transformationName.transformationName, arg.predicate)
-
   implicit val writeTransformation: Writes[TransformationDTO] = (
     (__ \ "transformation").write[Transformation] and
     (__ \ "predicate").write[Option[String]])(unlift(TransformationDTO.unapply))
@@ -24,4 +22,3 @@ object TransformationDTO {
     (__ \ "predicate").readNullable[String])(TransformationDTO.applyWithOptional _)
 }
 
-//

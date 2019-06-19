@@ -1,6 +1,7 @@
 package docker
 
 import scala.concurrent.{ ExecutionContext, Future }
+import config.Config.SBT
 
 object Docker {
   import ammonite.ops._
@@ -9,10 +10,10 @@ object Docker {
     implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
     //sbt docker:publishLocal
-    %%("C:\\Program Files (x86)\\sbt\\bin\\sbt.bat", "docker:publishLocal")(Path("C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis"))
+    %%(SBT, "docker:publishLocal")(Path("..\\Metamorphosis"))
 
     //docker run --rm metamorphosis:0.1
-    Future(%%("docker", "run", "--rm", "metamorphosis:0.1")(Path("C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis")))
+    Future(%%("docker", "run", "--rm", "metamorphosis:0.1")(Path("..\\Metamorphosis")))
 
   }
 }

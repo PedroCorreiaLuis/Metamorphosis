@@ -1,6 +1,6 @@
 package api.transformations
 
-import play.api.libs.json.{ Json, OFormat, Reads, Writes }
+import play.api.libs.json.{ Json, Reads, Writes }
 
 object Transformations {
 
@@ -25,6 +25,8 @@ object Transformations {
   def toTransformation(name: String): Transformation = name match {
     case Filter.transformationName => Filter
     case Sum.transformationName => Sum
+    case Map.transformationName => Map
+    case Size.transformationName => Size
     case _ => InvalidTransformation(s"$name is not a valid Transformation type.")
   }
 

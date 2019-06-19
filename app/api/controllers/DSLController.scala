@@ -2,12 +2,11 @@ package api.controllers
 
 import akka.actor.ActorSystem
 import api.dtos.DSLDTO
+import docker.Docker._
 import javax.inject.{ Inject, Singleton }
-import play.api.inject.Module
 import output.ObjectGenerator
 import play.api.libs.json.{ JsError, JsValue, Json }
 import play.api.mvc.{ AbstractController, Action, ControllerComponents }
-import docker.Docker._
 
 import scala.concurrent.{ ExecutionContext, Future }
 @Singleton
@@ -27,7 +26,7 @@ class DSLController @Inject() (cc: ControllerComponents, actorSystem: ActorSyste
       },
       dsl => {
         val objGen = new ObjectGenerator[Int](dsl, dummyData)
-        val path = "C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis\\app\\output"
+        val path = "..\\Metamorphosis\\app\\output"
         objGen.generate(path, "POC")
         runDockerCommands.map(_ => Ok(Json.toJson(dsl)))
       })

@@ -8,8 +8,8 @@ import validations.Errors.ClassNotFoundException
 
 class PathClassLoaderTest extends AsyncWordSpec with BeforeAndAfterAll with BeforeAndAfterEach with Matchers {
 
-  private val simpleClassPath = "C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis\\test\\typeLoader\\testJars\\typeLoader.testJars.DummySimpleClass.scala"
-  private val complexClassPath = "C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis\\test\\typeLoader\\testJars\\DummyComplexClass.scala"
+  private val simpleClassPath = "..\\Metamorphosis\\test\\typeLoader\\testJars\\typeLoader.testJars.DummySimpleClass.scala"
+  private val complexClassPath = "..\\Metamorphosis\\test\\typeLoader\\testJars\\DummyComplexClass.scala"
 
   private val simplePathClassLoader: PathClassLoader = new PathClassLoader(simpleClassPath)
   private val complexPathClassLoader: PathClassLoader = new PathClassLoader(complexClassPath)

@@ -7,7 +7,7 @@ import java.net.{ URL, URLClassLoader }
 //To delete
 object testLoaderObject extends App {
 
-  val jarPathName = "C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis\\app\\output\\DummySimpleClass.scala"
+  val jarPathName = "..\\Metamorphosis\\app\\output\\DummySimpleClass.scala"
 
   val classLoader = new URLClassLoader(Array[URL](new File(jarPathName).toURI.toURL))
 
