@@ -1,0 +1,9 @@
+
+message SumRequest {
+ required sint32 a = 1;
+ required sint32 b = 2;
+}
+
+message SumResponse {
+ required sint32 result = 1;
+}

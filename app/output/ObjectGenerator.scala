@@ -21,7 +21,7 @@ class ObjectGenerator[T](dsl: DSLDTO, data: Seq[T]) extends CodeGenerator {
         case Some(p) => "(" + p + ")"
         case None => ""
       }
-      transformation.transformationName.getOrElse("") + lambda
+      transformation.transformationName.transformationName + lambda
     }
 
     val res = transformationsParser.foldLeft("")(_ + "." + _)
@@ -40,7 +40,7 @@ class ObjectGenerator[T](dsl: DSLDTO, data: Seq[T]) extends CodeGenerator {
          |}
          |
          |def main(args: Array[String]): Unit = {
-         |run
+         |println(run)
          |}
          |}
     """.stripMargin)

@@ -6,6 +6,6 @@ object POC {
   }
 
   def main(args: Array[String]): Unit = {
-    run
+    println(run)
   }
 }

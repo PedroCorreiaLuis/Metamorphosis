@@ -8,7 +8,13 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala).enablePlugins(Ja
 
 mainClass in Compile := Some("POC")
 
+
 dockerBaseImage := "openjdk:jre-alpine"
+dockerExposedPorts := Seq(9000)
+
+PB.targets in Compile := Seq(
+  scalapb.gen() -> (sourceManaged in Compile).value
+)
 
 resolvers ++= Seq(
   Resolver.sonatypeRepo("releases"),
@@ -18,5 +24,7 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   "org.scalatestplus.play"  %% "scalatestplus-play" % "3.1.2",
   "org.scala-lang" % "scala-compiler" % "2.12.8",
-  "com.chuusai" %% "shapeless" % "2.3.3"
+  "com.chuusai" %% "shapeless" % "2.3.3",
+  "com.lihaoyi" %% "ammonite-ops" % "1.6.8",
+  "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf"
 )

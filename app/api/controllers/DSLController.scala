@@ -5,8 +5,9 @@ import api.dtos.DSLDTO
 import javax.inject.{ Inject, Singleton }
 import play.api.inject.Module
 import output.ObjectGenerator
-import play.api.libs.json.{ JsValue, Json }
+import play.api.libs.json.{ JsError, JsValue, Json }
 import play.api.mvc.{ AbstractController, Action, ControllerComponents }
+import docker.Docker._
 
 import scala.concurrent.{ ExecutionContext, Future }
 @Singleton
@@ -22,17 +23,13 @@ class DSLController @Inject() (cc: ControllerComponents, actorSystem: ActorSyste
     dslResult.fold(
       errors => {
         print(errors)
-        Future.successful { BadRequest("error") }
+        Future.successful { BadRequest(Json.obj("Invalid inputs" -> JsError.toJson(errors))) }
       },
       dsl => {
         val objGen = new ObjectGenerator[Int](dsl, dummyData)
         val path = "C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis\\app\\output"
         objGen.generate(path, "POC")
-        // parse class
-        // try to run class?
-        // run class through docker
-        print(dsl)
-        Future(Ok(Json.toJson(dsl)))
+        runDockerCommands.map(_ => Ok(Json.toJson(dsl)))
       })
   }
 

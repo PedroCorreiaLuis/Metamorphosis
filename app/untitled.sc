@@ -1,10 +1,9 @@
-import api.dtos.{DSLDTO, TransformationDTO, TypeDTO}
-import play.api.libs.json.Json
+/*import sys.process._
+import language.experimental._
+import language._
 
-val inTDTO = TypeDTO("Compose",Some("List[Int]"))
-val outTDTO  = TypeDTO("Simple",Some("Int"))
+val scriptPath = "C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis"
+val command = Seq("sbt","-c",scriptPath)
+Process(command,new java.io.File(".")) !
+*/
 
-val transDTO  = Seq(TransformationDTO(Some("filter"),Some("p=> p> 5")),TransformationDTO(Some("sum"),None))
-
-val dslDTO = DSLDTO(inTDTO,outTDTO,transDTO)
-Json.toJson(dslDTO)
