@@ -11,5 +11,4 @@ object Patterns {
   val TypesExtractor: Regex = "\\[.+;.+\\]".r
   val TransformationsExtractor: Regex = "\\{.+\\}".r
   val FileExtractor: Regex = ".:.+\\.txt".r
-
 }

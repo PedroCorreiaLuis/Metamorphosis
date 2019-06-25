@@ -1,5 +1,7 @@
 package api.controllers
 
+import java.io.File
+
 import akka.actor.ActorSystem
 import api.dtos.DSLDTO
 import docker.Docker._
@@ -10,6 +12,7 @@ import play.api.mvc.{ AbstractController, Action, ControllerComponents }
 import config.Config.OutputPath
 
 import scala.concurrent.{ ExecutionContext, Future }
+import scala.util.{ Failure, Success }
 @Singleton
 class DSLController @Inject() (cc: ControllerComponents, actorSystem: ActorSystem) extends AbstractController(cc) {
   implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
@@ -26,7 +29,13 @@ class DSLController @Inject() (cc: ControllerComponents, actorSystem: ActorSyste
       dsl => {
         val objGen = new ObjectGenerator(dsl)
         objGen.generate(OutputPath, "POC")
-        runDockerCommands.map(_ => Ok(Json.toJson(dsl)))
+        runDockerCommands.map(
+          {
+            case Success(value) => Ok(Json.toJson(dsl))
+            case Failure(exception) =>
+              new File("C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis\\app\\output\\POC.scala").delete()
+              BadRequest(exception.toString)
+          })
       })
   }
 

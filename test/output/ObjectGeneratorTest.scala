@@ -6,7 +6,7 @@ import api.dtos.{ DSLDTO, TransformationDTO, TypeDTO }
 import org.scalatest._
 import typeLoader.PathClassLoader
 import validations.Errors.ClassNotFoundException
-import api.transformations.Transformations._
+import validations.api.Transformations._
 
 class ObjectGeneratorTest extends WordSpec with BeforeAndAfterAll with BeforeAndAfterEach with Matchers {
 

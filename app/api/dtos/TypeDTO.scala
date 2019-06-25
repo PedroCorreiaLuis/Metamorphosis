@@ -2,10 +2,10 @@ package api.dtos
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads.{ verifying, _ }
-import play.api.libs.json._
-import validations.TypeChecker._
+import play.api.libs.json.{ JsonValidationError, _ }
+import validations.api.TypeChecker._
+import validations.api.CategoryNames._
 
-//TODO categoryName can be deleted, no reason other than validations for this to exist
 case class TypeDTO(categoryName: String, `type`: Option[String])
 
 object TypeDTO {
@@ -21,6 +21,6 @@ object TypeDTO {
     (__ \ "type").write[Option[String]])(unlift(TypeDTO.unapply))
 
   implicit val readType: Reads[TypeDTO] = (
-    (__ \ "categoryName").read[String] and
+    (__ \ "categoryName").read[String](filter[String](JsonValidationError.apply("Invalid category name."))(categoryNames.contains)) and
     verifyType(__ \ "type"))(TypeDTO.apply _)
 }

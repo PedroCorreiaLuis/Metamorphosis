@@ -3,12 +3,12 @@ package api.dtos
 import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads._
 import play.api.libs.json._
-import api.transformations.Transformations._
+import validations.api.Transformations._
 
 case class TransformationDTO(transformationName: Transformation, predicate: Option[String])
 
 object TransformationDTO {
-  import api.transformations.Transformations.Transformation._
+  import validations.api.Transformations.Transformation._
 
   def applyWithOptional(transformationName: String, predicate: Option[String]): TransformationDTO =
     TransformationDTO(toTransformation(transformationName), predicate)

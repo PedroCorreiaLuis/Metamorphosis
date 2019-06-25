@@ -1,4 +1,4 @@
-package validations
+package validations.api
 
 object TypeChecker {
 
