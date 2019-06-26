@@ -6,7 +6,7 @@ import akka.actor.ActorSystem
 import api.dtos.DSLDTO
 import docker.Docker._
 import javax.inject.{ Inject, Singleton }
-import output.{ CodeGenerator, ObjectGenerator }
+import repository.{ CodeGenerator, ObjectGenerator }
 import play.api.libs.json.{ JsError, JsValue, Json }
 import play.api.mvc.{ AbstractController, Action, ControllerComponents }
 import config.Config.OutputPath

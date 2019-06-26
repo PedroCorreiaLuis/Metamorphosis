@@ -1,5 +1,5 @@
 import com.google.inject.AbstractModule
-import output.{ CodeGenerator, ObjectGenerator }
+import repository.{ CodeGenerator, ObjectGenerator }
 
 import scala.concurrent.ExecutionContext
 
