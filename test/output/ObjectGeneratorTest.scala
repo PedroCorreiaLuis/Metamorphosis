@@ -26,10 +26,10 @@ class ObjectGeneratorTest extends WordSpec with BeforeAndAfterAll with BeforeAnd
   "Object Generator" should {
     "correctly generate an Object in the target path" in {
 
-      val objGen = new ObjectGenerator(dsl)
+      val objGen = new ObjectGenerator()
       val classLoader = new PathClassLoader(path)
 
-      objGen.generate(path, objectName)
+      objGen.generate(dsl, path, objectName)
 
       def recursiveAssertion: Assertion = {
         classLoader.getclazz(objectName) match {

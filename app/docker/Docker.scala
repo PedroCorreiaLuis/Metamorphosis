@@ -8,14 +8,15 @@ import scala.util.Try
 object Docker {
   import ammonite.ops._
 
-  def runDockerCommands: Future[Try[CommandResult]] = {
+  def runDockerCommands: (Future[Try[CommandResult]], Future[Try[CommandResult]]) = {
     implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
     //sbt docker:publishLocal
-    val cmd = Future(Try(%%(SBT, "docker:publishLocal")(pwd)))
+    val cmd1 = Future(Try(%%(SBT, "docker:publishLocal")(pwd)))
 
     //docker run --rm metamorphosis:0.1
-    Future(%%("docker", "run", "--rm", "metamorphosis:0.1")(pwd))
-    cmd
+    val cmd2 = Future(Try(%%("docker", "run", "--rm", "metamorphosis:0.1")(pwd)))
+
+    (cmd1, cmd2)
   }
 }
