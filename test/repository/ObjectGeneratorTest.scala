@@ -8,7 +8,10 @@ import typeLoader.PathClassLoader
 import validations.Errors.ClassNotFoundException
 import validations.api.Transformations._
 
+import scala.concurrent.ExecutionContext
+
 class ObjectGeneratorTest extends WordSpec with BeforeAndAfterAll with BeforeAndAfterEach with Matchers {
+  implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
   private val inType = TypeDTO("Composed", Some("List[Int]"))
   private val outType = TypeDTO("Simple", Some("Int"))
@@ -16,31 +19,33 @@ class ObjectGeneratorTest extends WordSpec with BeforeAndAfterAll with BeforeAnd
   private val transformations = Seq(TransformationDTO(Map, Some("p => p + 2")), TransformationDTO(Size, None))
 
   private val dsl = DSLDTO(inType, outType, transformations)
-  private val path = "..\\Metamorphosis\\test\\output"
-  private val objectName = "GeneratedTest"
-
-  override def afterAll(): Unit = {
-    new File(path + "\\" + objectName + ".scala").delete()
-  }
+  private val outputPath = "..\\Metamorphosis\\test\\output"
 
   "Object Generator" should {
     "correctly generate an Object in the target path" in {
 
       val objGen = new ObjectGenerator()
-      val classLoader = new PathClassLoader(path)
+      val classLoader = new PathClassLoader(outputPath)
 
-      objGen.generate(dsl, path, objectName)
+      objGen.generate(dsl, outputPath).map {
+        {
+          case (id, path) =>
 
-      def recursiveAssertion: Assertion = {
-        classLoader.getclazz(objectName) match {
-          case Right(_) => Succeeded
-          case Left(ClassNotFoundException) => recursiveAssertion
-          case _ => fail()
+            def recursiveAssertion: Assertion = {
+              classLoader.getclazz(id.toString) match {
+                case Right(_) => Succeeded
+                case Left(ClassNotFoundException) => recursiveAssertion
+                case _ =>
+                  new File(path).delete()
+                  fail()
+              }
+
+            }
+            recursiveAssertion
+
         }
-
-        recursiveAssertion
-
       }
+
     }
   }
 }

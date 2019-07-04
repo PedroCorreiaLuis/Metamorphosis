@@ -1,6 +1,7 @@
 package repository
 
 import java.io.PrintWriter
+import java.util.UUID
 
 import api.dtos.DSLDTO
 
@@ -10,7 +11,7 @@ class ObjectGenerator extends CodeGenerator {
 
   implicit val exec: ExecutionContext = ExecutionContext.global
 
-  def generate(dsl: DSLDTO, outputPath: String, objectName: String): Future[String] = {
+  def generate(dsl: DSLDTO, outputPath: String): Future[(String, String)] = {
 
     val transformationsParser = dsl.transformations.map { transformation =>
 
@@ -21,6 +22,7 @@ class ObjectGenerator extends CodeGenerator {
       transformation.transformationName.transformationName + lambda
     }
 
+    val objectName = "gen" + UUID.randomUUID().toString.replace("-", "_")
     val res = transformationsParser.foldLeft("")(_ + "." + _)
 
     val inType = dsl.inType.`type`.getOrElse("")
@@ -46,7 +48,7 @@ class ObjectGenerator extends CodeGenerator {
     """.stripMargin)
       close()
     })
-    Future(fullPath)
+    Future(objectName, fullPath)
   }
 }
 

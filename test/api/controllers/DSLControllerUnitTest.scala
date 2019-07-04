@@ -19,6 +19,7 @@ import play.api.mvc.Results
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
+//TODO make fake docker scripts
 class DSLControllerUnitTest extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterAll with BeforeAndAfterEach with Results {
 
   val appBuilder: GuiceApplicationBuilder = new GuiceApplicationBuilder().in(Mode.Test)
@@ -30,10 +31,6 @@ class DSLControllerUnitTest extends PlaySpec with GuiceOneAppPerSuite with Befor
   lazy implicit private val mat: Materializer = injector.instanceOf[Materializer]
 
   val fakeGenerator = new TestGenerator
-
-  override def afterAll(): Unit = {
-    new File("...\\Metamorphosis\\app\\output\\POC.scala").delete()
-  }
 
   "DSLController #compute" should {
     "send a OK if JSON Body is correct" in {

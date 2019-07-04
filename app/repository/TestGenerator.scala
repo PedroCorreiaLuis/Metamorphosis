@@ -1,8 +1,10 @@
 package repository
+import java.util.UUID
+
 import api.dtos.DSLDTO
 
 import scala.concurrent.Future
 
 class TestGenerator extends CodeGenerator {
-  override def generate(dsl: DSLDTO, outputPath: String, objectName: String): Future[String] = Future.successful("")
+  override def generate(dsl: DSLDTO, outputPath: String): Future[(String, String)] = Future.successful(UUID.randomUUID().toString, "")
 }
