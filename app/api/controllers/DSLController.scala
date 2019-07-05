@@ -3,13 +3,13 @@ package api.controllers
 import java.io.File
 
 import akka.actor.ActorSystem
-import api.dtos.DSLDTO
+import api.dtos.{ ComputeDTO, DSLDTO }
 import config.Config.OutputPath
 import javax.inject.{ Inject, Singleton }
 import play.api.libs.json.{ JsError, JsValue, Json }
 import play.api.mvc.{ AbstractController, Action, ControllerComponents }
-import repository.CodeGenerator
-import repository.ScriptGenerator._
+import repository.generators.CodeGenerator
+import repository.generators.ScriptGenerator._
 import scripts.docker.DockerScripts._
 import scripts.sbt.SBTScript._
 
@@ -38,7 +38,10 @@ class DSLController @Inject() (codeGenerator: CodeGenerator, cc: ControllerCompo
                   case Success(_) =>
                     generate("C:\\Users\\Pedro Luis\\IdeaProjects\\Metamorphosis\\target\\docker\\stage\\opt\\docker\\bin\\metamorphosis", className)
                     createDockerImage(className)
-                    Ok(Json.toJson(dsl))
+                    //Delete class after build?
+                    //new File(path).delete()
+                    Ok(Json.toJson(ComputeDTO("kakoon", className, dsl)))
+
                   case Failure(exception) =>
                     new File(path).delete()
                     BadRequest(exception.toString)

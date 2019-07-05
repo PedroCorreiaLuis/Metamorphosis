@@ -1,4 +1,4 @@
-package repository
+package repository.generators
 
 import api.dtos.DSLDTO
 

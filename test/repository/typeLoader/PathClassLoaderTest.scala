@@ -1,15 +1,15 @@
-package typeLoader
+package repository.typeLoader
 
 import java.lang.reflect.{ Constructor, Method }
 
 import org.scalatest.{ AsyncWordSpec, BeforeAndAfterAll, BeforeAndAfterEach, Matchers }
-import typeLoader.testJars.{ DummyComplexClass, DummySimpleClass }
-import validations.Errors.ClassNotFoundException
+import repository.typeLoader.testJars.{ DummyComplexClass, DummySimpleClass }
+import repository.Errors.ClassNotFoundException
 
 class PathClassLoaderTest extends AsyncWordSpec with BeforeAndAfterAll with BeforeAndAfterEach with Matchers {
 
-  private val simpleClassPath = "..\\Metamorphosis\\test\\typeLoader\\testJars\\typeLoader.testJars.DummySimpleClass.scala"
-  private val complexClassPath = "..\\Metamorphosis\\test\\typeLoader\\testJars\\DummyComplexClass.scala"
+  private val simpleClassPath = "..\\Metamorphosis\\test\\repository.typeLoader\\testJars\\repository.typeLoader.testJars.DummySimpleClass.scala"
+  private val complexClassPath = "..\\Metamorphosis\\test\\repository.typeLoader\\testJars\\DummyComplexClass.scala"
 
   private val simplePathClassLoader: PathClassLoader = new PathClassLoader(simpleClassPath)
   private val complexPathClassLoader: PathClassLoader = new PathClassLoader(complexClassPath)
@@ -21,7 +21,7 @@ class PathClassLoaderTest extends AsyncWordSpec with BeforeAndAfterAll with Befo
     "be able to correctly load a class with a parameterless method" in {
 
       val dummySimpleClass: Class[_] = dummySClass.getClass
-      val eitherClazz = simplePathClassLoader.getclazz("typeLoader.testJars.DummySimpleClass")
+      val eitherClazz = simplePathClassLoader.getclazz("repository.typeLoader.testJars.DummySimpleClass")
 
       eitherClazz shouldBe Right(dummySimpleClass)
       simplePathClassLoader.getMethod(eitherClazz.getOrElse(Class.forName("")), "hello") shouldBe Right(dummySimpleClass.getMethod("hello"))
@@ -38,7 +38,7 @@ class PathClassLoaderTest extends AsyncWordSpec with BeforeAndAfterAll with Befo
     "be able to invoke loaded method" in {
 
       val result = for {
-        clazz <- simplePathClassLoader.getclazz("typeLoader.testJars.DummySimpleClass")
+        clazz <- simplePathClassLoader.getclazz("repository.typeLoader.testJars.DummySimpleClass")
         method <- simplePathClassLoader.getMethod(clazz, "hello")
       } yield simplePathClassLoader.callMethod(method, clazz, None) shouldBe Right(dummySClass.hello)
 
@@ -54,7 +54,7 @@ class PathClassLoaderTest extends AsyncWordSpec with BeforeAndAfterAll with Befo
     "be able to correctly load a class with more than 1 method, with parameters" in {
       val dummyComplexClass: Class[_] = dummyCClass.getClass
 
-      val eitherClazz = complexPathClassLoader.getclazz("typeLoader.testJars.DummyComplexClass")
+      val eitherClazz = complexPathClassLoader.getclazz("repository.typeLoader.testJars.DummyComplexClass")
       val clazzDefault = eitherClazz.getOrElse(Class.forName(""))
 
       eitherClazz shouldBe Right(dummyComplexClass)
@@ -68,7 +68,7 @@ class PathClassLoaderTest extends AsyncWordSpec with BeforeAndAfterAll with Befo
   "Class Loader " should {
     "be able to invoke more than 1 loaded parameter method, with a class that has arguments" in {
 
-      val eitherClazz = complexPathClassLoader.getclazz("typeLoader.testJars.DummyComplexClass")
+      val eitherClazz = complexPathClassLoader.getclazz("repository.typeLoader.testJars.DummyComplexClass")
 
       val defaultClazz = eitherClazz.getOrElse(Class.forName(""))
 

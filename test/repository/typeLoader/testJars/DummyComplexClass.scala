@@ -1,4 +1,4 @@
-package typeLoader.testJars
+package repository.typeLoader.testJars
 
 case class DummyComplexClass(name: String, age: Int, contacts: List[String]) {
 

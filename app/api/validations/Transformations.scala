@@ -1,4 +1,4 @@
-package validations.api
+package api.validations
 
 import play.api.libs.json.{ Json, Reads, Writes }
 

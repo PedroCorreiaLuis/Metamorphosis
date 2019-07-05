@@ -1,4 +1,4 @@
-package typeLoader
+package repository.typeLoader
 
 import java.lang.reflect.{ Constructor, Method }
 

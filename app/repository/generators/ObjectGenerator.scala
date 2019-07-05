@@ -1,4 +1,4 @@
-package repository
+package repository.generators
 
 import java.io.PrintWriter
 import java.util.UUID
@@ -13,7 +13,7 @@ class ObjectGenerator extends CodeGenerator {
 
   def generate(dsl: DSLDTO, outputPath: String): Future[(String, String)] = {
 
-    val transformationsParser = dsl.transformations.map { transformation =>
+    val transformationsParser = dsl.transformations.sortBy(_.transformationOrder).map { transformation =>
 
       val lambda = transformation.predicate match {
         case Some(p) => "(" + p + ")"

@@ -1,4 +1,5 @@
-package repository
+package repository.generators
+
 import java.util.UUID
 
 import api.dtos.DSLDTO

@@ -3,8 +3,8 @@ package api.dtos
 import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads.{ verifying, _ }
 import play.api.libs.json.{ JsonValidationError, _ }
-import validations.api.TypeChecker._
-import validations.api.CategoryNames._
+import api.validations.TypeChecker._
+import api.validations.CategoryNames._
 
 case class TypeDTO(categoryName: String, `type`: Option[String])
 

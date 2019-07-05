@@ -1,4 +1,4 @@
-package typeLoader
+package repository.typeLoader
 
 import java.io.File
 import java.lang.reflect.{ Constructor, Method }
@@ -11,7 +11,7 @@ object testLoaderObject extends App {
 
   val classLoader = new URLClassLoader(Array[URL](new File(jarPathName).toURI.toURL))
 
-  val clazz: Class[_] = classLoader.loadClass("typeLoader.testJars.DummySimpleClass")
+  val clazz: Class[_] = classLoader.loadClass("repository.typeLoader.testJars.DummySimpleClass")
   val method: Method = clazz.getMethod("hello")
   def callMethod(method: Method, clazz: Class[_]): AnyRef = {
     method.invoke(clazz)

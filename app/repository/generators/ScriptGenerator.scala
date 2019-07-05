@@ -1,4 +1,4 @@
-package repository
+package repository.generators
 
 import java.io.PrintWriter
 
@@ -76,4 +76,3 @@ object ScriptGenerator {
     }
   }
 }
-

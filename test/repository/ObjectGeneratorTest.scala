@@ -5,8 +5,9 @@ import java.io.File
 import api.dtos.{ DSLDTO, TransformationDTO, TypeDTO }
 import org.scalatest._
 import typeLoader.PathClassLoader
-import validations.Errors.ClassNotFoundException
-import validations.api.Transformations._
+import Errors.ClassNotFoundException
+import api.validations.Transformations._
+import repository.generators.ObjectGenerator
 
 import scala.concurrent.ExecutionContext
 
@@ -16,7 +17,7 @@ class ObjectGeneratorTest extends WordSpec with BeforeAndAfterAll with BeforeAnd
   private val inType = TypeDTO("Composed", Some("List[Int]"))
   private val outType = TypeDTO("Simple", Some("Int"))
 
-  private val transformations = Seq(TransformationDTO(Map, Some("p => p + 2")), TransformationDTO(Size, None))
+  private val transformations = Seq(TransformationDTO(Map, 1, Some("p => p + 2")), TransformationDTO(Size, 2, None))
 
   private val dsl = DSLDTO(inType, outType, transformations)
   private val outputPath = "..\\Metamorphosis\\test\\output"

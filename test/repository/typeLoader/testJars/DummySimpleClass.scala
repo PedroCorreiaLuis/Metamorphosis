@@ -1,4 +1,4 @@
-package typeLoader.testJars
+package repository.typeLoader.testJars
 
 class DummySimpleClass() {
 

@@ -13,11 +13,11 @@ import play.api.mvc.ControllerComponents
 import org.scalatest.{ BeforeAndAfterAll, BeforeAndAfterEach }
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import repository.TestGenerator
 import play.api.libs.json.Json
 import play.api.mvc.Results
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repository.generators.TestGenerator
 
 //TODO make fake docker scripts
 class DSLControllerUnitTest extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterAll with BeforeAndAfterEach with Results {
@@ -49,10 +49,12 @@ class DSLControllerUnitTest extends PlaySpec with GuiceOneAppPerSuite with Befor
                                    "transformations": [
                                        {
                                            "transformation": "filter",
+                                           "transformationOrder": 1,
                                            "predicate": "p=> p >5"
                                        },
                                        {
-                                           "transformation": "sum"
+                                           "transformation": "sum",
+                                           "transformationOrder": 1
                                        }
                                    ]
                                }""")))

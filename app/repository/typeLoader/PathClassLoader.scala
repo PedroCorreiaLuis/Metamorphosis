@@ -1,10 +1,10 @@
-package typeLoader
+package repository.typeLoader
 
 import java.io.File
 import java.lang.reflect.Method
 import java.net.{ URL, URLClassLoader }
 
-import validations.Errors._
+import repository.Errors._
 
 import scala.util.{ Failure, Success, Try }
 

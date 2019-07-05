@@ -1,4 +1,4 @@
-package validations
+package repository
 
 object Errors {
   val ClassNotFoundException = new ClassNotFoundException()
